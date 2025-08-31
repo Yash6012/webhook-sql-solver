@@ -20,7 +20,6 @@ public class WebhookService {
     
     public void processWebhookAndSolve() {
         try {
-            // Step 1: Generate webhook
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             
@@ -33,10 +32,7 @@ public class WebhookService {
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
                 WebhookResponse webhookResponse = response.getBody();
                 
-                // Step 2: Solve the SQL problem
                 String finalQuery = sqlProblemSolver.solveSqlProblem();
-                
-                // Step 3: Submit the solution
                 submitSolution(webhookResponse.getWebhook(), 
                               webhookResponse.getAccessToken(), 
                               finalQuery);
@@ -63,4 +59,5 @@ public class WebhookService {
             System.out.println("Failed to submit solution: " + response.getStatusCode());
         }
     }
+
 }
